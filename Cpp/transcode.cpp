@@ -1,4 +1,3 @@
-#ifndef __PROGTEST__
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -9,14 +8,12 @@
 #include <vector>
 #include <string>
 using namespace std;
-#endif /* __PROGTEST__ */
 
 string ByteToBinary ( const int32_t content )
 {
     unsigned char u_content = content;
     uint32_t value = u_content; int remainder = 0; char tmp = 0;
     string res = "";
-// ________________________________________________________________________________
     while ( 1 ){
         if ( value == 0 )
             break;
@@ -33,9 +30,7 @@ string ByteToBinary ( const int32_t content )
            res = '0' + res;;
         }
     }
-    // cout << "res = " << res << endl;
 
-    // cout << "toBinary = " << res << "\n" << endl;
     return res;
 }   
 
@@ -46,7 +41,7 @@ vector<int32_t> GenerateFibSeq ( void )
     int b = 2;
     int c = 0;
     int max = 1114111;
-// ________________________________________________________________________________
+
     fibSeq.push_back( a );
     fibSeq.push_back( b );
 
@@ -65,7 +60,6 @@ vector<int32_t> GenerateFibSeq ( void )
 int NumberOfExtraBytes ( int32_t &value )
 {
     int n = 0;
-// ________________________________________________________________________________    
     if ( ( value & 0b11111000 ) == 0b11110000 ){
         value = ( value & 0b00000111 );
         n = 3;
@@ -84,7 +78,6 @@ int NumberOfExtraBytes ( int32_t &value )
     }
     else { n = -1; }
 
-    // cout << "Extra Bytes = " << n << endl;
     return n;  
 }
 
@@ -103,7 +96,6 @@ void RotateString ( string &tmp )
 bool WriteOutputToFile ( string &finalSeq, ofstream &outputFile )
 {
     size_t position = 0; size_t lengthOfSubstr = 8; string tmp = ""; char outputByte = 0;
-// ________________________________________________________________________________
     while ( position < finalSeq.length() ){
         tmp = finalSeq.substr( position, lengthOfSubstr );
         RotateString ( tmp );
@@ -122,7 +114,6 @@ bool ToFib ( const vector<int32_t> &FS, int32_t value, ofstream &outputFile, str
 {
     size_t i = FS.size();
     value += 1; string value_fib = "";
-// ________________________________________________________________________________    
     while ( 1 ){
         if ( (value >= FS[i - 1]) && (value <= FS[i]) )
             break; 
@@ -144,7 +135,6 @@ bool ToFib ( const vector<int32_t> &FS, int32_t value, ofstream &outputFile, str
         }
     }
     finalSeq += value_fib;
-    // cout << "finalSeq = " << finalSeq << endl;
 
     if ( ( finalSeq.length() % 8 ) == 0 ){
         if ( ! (WriteOutputToFile ( finalSeq, outputFile ) ) )
@@ -181,7 +171,6 @@ int32_t BitwiseOr ( int32_t value1, int32_t value2 )
 
 bool utf8ToFibonacci ( const char * inFile, const char * outFile )
 {
-// ________________________________________________________________________________
     ifstream inputFile ( inFile, ios::binary );
     if ( ! ( inputFile.is_open() && inputFile.good() ) )
         return false;
@@ -189,9 +178,7 @@ bool utf8ToFibonacci ( const char * inFile, const char * outFile )
     ofstream outputFile ( outFile, ios::binary );
     if ( ! ( outputFile.is_open() && outputFile.good() ) )
         return false;
-// ________________________________________________________________________________
     char content = 0; vector<int32_t> FS = GenerateFibSeq(); string finalSeq = "";
-// ________________________________________________________________________________
     while ( inputFile.get( content ) ){
         string contentBinary = ByteToBinary ( content );
         int32_t value = stoi ( contentBinary, 0, 2 );
@@ -201,7 +188,6 @@ bool utf8ToFibonacci ( const char * inFile, const char * outFile )
                 return false;
         }
         else if ( ( numOfExtraBytes > 0 ) && ( numOfExtraBytes < 4 ) ){
-            // cout << " value of first byte = " << value << endl;
             for ( int i = 0; i < numOfExtraBytes; i++ ){
                 inputFile.get ( content );
                 if ( inputFile.eof() )
@@ -214,22 +200,18 @@ bool utf8ToFibonacci ( const char * inFile, const char * outFile )
                     return false;
                 value = BitwiseOr( value, value2 );
             }
-            // cout << "value after bitwiseOr = " << value << endl;
             if ( ! ( ToFib ( FS, value, outputFile, finalSeq ) ) )
                 return false;
         }
         else return false;
 
-        // cout << endl;
     }
     if ( ! ( CompleteOutput ( finalSeq, outputFile ) ) )
         return false;
-    // cout << "--------------------------------------------------------" << endl;
 
     return true;
 }
 
-// _________________________________________________________________________________________________________________________________________________
 
 int FoundSeqToNum ( const string &foundSeq, vector<int32_t> FS )
 {
@@ -304,9 +286,7 @@ void FillWithZeros ( string &finalSeq, const int numOfBytes )
 
 bool ToUtf8 ( int32_t value, ofstream &outputFile )
 {
-    // cout << "------------------------"<< value << " to utf8------------------------" << endl;
     int numOfBytes = NumOfBytes( value );
-    // cout << "num of bytes = " << numOfBytes << endl;
     if ( numOfBytes == -1 )
         return false;
 
@@ -321,14 +301,12 @@ bool ToUtf8 ( int32_t value, ofstream &outputFile )
     else{
         size_t position = 0; 
         string finalSeq = ToBinary ( value );
-        // cout << "finalSeq = " << finalSeq << endl;
         string tmp = ""; char finalByte = 0; int32_t tmp_int = 0;
         if ( numOfBytes == 1 ){
             if ( finalSeq.length() < 6 ){
                 FillWithZeros ( finalSeq, numOfBytes );
             }
             tmp = finalSeq.substr ( position, finalSeq.length() % 6 );
-            // cout << "tmp = " << tmp << endl;
             if ( tmp.length() == 0 )
                 tmp_int = 0;
             else
@@ -338,15 +316,12 @@ bool ToUtf8 ( int32_t value, ofstream &outputFile )
             tmp_int |= 0b11000000;
             position += finalSeq.length() % 6;
             finalByte = tmp_int;
-            // string finalByteStr = ToBinary( finalByte );
-            // cout << "final string to be outputted = " << finalByteStr << endl;            
         }
         else if ( numOfBytes == 2 ){
             if ( finalSeq.length() < 12 ){
                 FillWithZeros ( finalSeq, numOfBytes );
             }            
             tmp = finalSeq.substr ( position, finalSeq.length() % 6 );
-            // cout << "tmp = " << tmp << endl;
             if ( tmp.length() == 0 )
                 tmp_int = 0;
             else            
@@ -356,15 +331,12 @@ bool ToUtf8 ( int32_t value, ofstream &outputFile )
             tmp_int |= 0b11100000;
             position += finalSeq.length() % 6;
             finalByte = tmp_int;
-            // string finalByteStr = ToBinary( finalByte );
-            // cout << "final string to be outputted = " << finalByteStr << endl;            
         }
         else if ( numOfBytes == 3 ){
             if ( finalSeq.length() < 18 ){
                 FillWithZeros ( finalSeq, numOfBytes );
             }            
             tmp = finalSeq.substr ( position, finalSeq.length() % 6 );
-            // cout << "tmp = " << tmp << endl;
             if ( tmp.length() == 0 )
                 tmp_int = 0;
             else            
@@ -374,8 +346,6 @@ bool ToUtf8 ( int32_t value, ofstream &outputFile )
             tmp_int |= 0b11110000;
             position += finalSeq.length() % 6;
             finalByte = tmp_int;
-            // string finalByteStr = ToBinary( finalByte );
-            // cout << "final string to be outputted = " << finalByteStr << endl;
         }       
         outputFile << finalByte;
         if ( ! ( outputFile.good() ) )
@@ -383,7 +353,6 @@ bool ToUtf8 ( int32_t value, ofstream &outputFile )
 
         for ( int i = 0; i < numOfBytes; i++ ){
             tmp = finalSeq.substr( position, 6 );
-            // cout << "tmp = " << tmp << endl;
             if ( tmp.length() == 0 )
                 tmp_int = 0;
             else            
@@ -391,8 +360,6 @@ bool ToUtf8 ( int32_t value, ofstream &outputFile )
             if ( ( finalByte > 0b10111111 ) )
                 return false;
             finalByte |= 0b10000000;
-            // string finalByteStr = ToBinary( finalByte );
-            // cout << "final string to be outputted = " << finalByteStr << endl;
             position += 6;
             outputFile << finalByte;
             if ( ! ( outputFile.good() ) )
@@ -406,13 +373,10 @@ bool ToUtf8 ( int32_t value, ofstream &outputFile )
 bool SplitSeqByDoubleOnes ( const string &byte, ofstream &outputFile, string &remainingString, const vector<int32_t> &FS )
 {   
     string foundSeq = ""; size_t position = 0;
-// ________________________________________________________________________________
     for ( size_t i = 0; i < byte.length(); i++ ){
         if ( ( byte[i - 1] == '1' ) && ( byte[i] == '1' ) ){
             foundSeq = byte.substr( position, ( i - position ) );
-            // cout << "foundSeq = " << foundSeq << endl;
             int32_t value = FoundSeqToNum ( foundSeq, FS );
-            // cout << "foundSeq value = " << value << endl;
             if ( ! ( ToUtf8( value, outputFile ) ) )
                 return false;
             position += foundSeq.length() + 1; i++;
@@ -436,7 +400,6 @@ bool CheckRemaining ( const string &remainingSeq )
 bool               fibonacciToUtf8                         ( const char      * inFile, 
                                                              const char      * outFile )
 {
-// ________________________________________________________________________________
     ifstream inputFile ( inFile );
     if ( ! ( inputFile.is_open() && inputFile.good() ) )
         return false;
@@ -444,24 +407,18 @@ bool               fibonacciToUtf8                         ( const char      * i
     ofstream outputFile ( outFile );
         if ( ! ( outputFile.is_open() && outputFile.good() ) )
             return false;
-// ________________________________________________________________________________
     char content = 0; vector<int32_t> FS = GenerateFibSeq(); string finalSeq = ""; string bitsString = "";
     string foundSeq = ""; string remainingString = "";
     for ( size_t i = 0; i < FS.size(); i++ ){
-        // cout << FS[i] << " ";
     }
-    // cout << endl;
-// ________________________________________________________________________________
     while ( inputFile.get ( content ) ){
         string contentBinary = ByteToBinary ( content );
         RotateString ( contentBinary );
         bitsString = remainingString + contentBinary;
-        // cout << "bitsString = " << bitsString << endl;
         if ( ! ( SplitSeqByDoubleOnes ( bitsString, outputFile, remainingString, FS ) ) )
             return false; 
 
     }
-    // cout << "remaining before check = " << remainingString << endl;
     if ( ! ( CheckRemaining ( remainingString ) ) )
         return false;
 
@@ -469,14 +426,7 @@ bool               fibonacciToUtf8                         ( const char      * i
     return true;
 }
   
-#ifndef __PROGTEST__
 
-
-bool               identicalFiles                          ( const char      * file1,
-                                                             const char      * file2 )
-{
-  // todo
-}
 
 int main ( int argc, char * argv [] )
 {
@@ -509,4 +459,3 @@ int main ( int argc, char * argv [] )
  
   return EXIT_SUCCESS;
 }
-#endif /* __PROGTEST__ */
