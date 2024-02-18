@@ -6,3 +6,7 @@ AVL_tree.cpp
 
 transcode.cpp
 - transcodes a file from the UTF8 encoding to the Fibonacci code and back
+
+database.cpp
+- simulates a database
+- implements different operations on the database
