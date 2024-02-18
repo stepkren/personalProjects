@@ -1,4 +1,3 @@
-#ifndef __PROGTEST__
 #include <algorithm>
 #include <array>
 #include <bitset>
@@ -36,7 +35,6 @@ struct Path {
   friend bool operator != (const Path& a, const Path& b) { return !(a == b); }
 };
 
-#endif
 
 std::vector<Point> top_sort ( const std::vector<std::vector<std::pair<Point, size_t>>> & adjList, std::map<Point, size_t> & inDegree ){
   std::queue<Point> q;
@@ -146,8 +144,6 @@ std::vector<Path> longest_track(size_t points, const std::vector<Path>& all_path
 }
 
 
-#ifndef __PROGTEST__
-
 
 struct Test {
   unsigned longest_track;
@@ -198,7 +194,4 @@ int main() {
   if (!fail) printf("Passed all %i tests!\n", ok);
   else printf("Failed %u of %u tests.\n", fail, fail + ok);
 }
-
-#endif
-
 
