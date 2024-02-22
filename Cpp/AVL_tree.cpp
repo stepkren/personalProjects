@@ -41,6 +41,12 @@ struct Tree {
 
   struct Node{
 
+    /**
+     * Constructor
+     * 
+     * @param value
+     * @param parent
+    */
     Node ( const T& value, Node * parent )
     : m_height ( 1 ), m_value ( value ), m_left ( nullptr ), m_right ( nullptr ), m_parent ( parent )
     {}
@@ -54,6 +60,11 @@ struct Tree {
     Node * m_parent;
   };
 
+  /**
+   * Recursive function to delete a node.
+   * 
+   * @param node A Node object to be deleted
+  */
   void deleteNode ( Node * node ){
     if ( node != nullptr ){
       deleteNode ( node -> m_right );
@@ -62,12 +73,24 @@ struct Tree {
     }
   }
 
+  // Destructor
   ~Tree ( void ){
     deleteNode ( root );
   }
 
+  /**
+   * Return the size of the tree.
+   * 
+   * @return The size of the tree
+  */
   size_t size() const { return m_size; }
 
+  /**
+   * Finds the element value in the tree.
+   * 
+   * @param value The value to be found in the tree
+   * @return Pointer to the value
+  */
   const T* find(const T& value) const{
     Node * curr = root;
     if ( curr == nullptr )
@@ -85,6 +108,12 @@ struct Tree {
     return nullptr;
   }
 
+  /**
+   * Finds the node with the given value.
+   * 
+   * @param value The value of the node to be found
+   * @return Node with the given value
+  */
   std::pair<Node*, Node*> findNode ( const T& value ) const{
     Node * curr = root;
     Node * parent = nullptr;
@@ -108,22 +137,45 @@ struct Tree {
     return std::make_pair( nullptr, parent );
   }
 
+  /**
+   * Returns the height of a node.
+   * 
+   * @param node The node of which the height is to be returned
+   * @return Height of the node
+  */
   size_t getNodeHeight ( Node * node ){
     if ( node == nullptr )
       return 0;
     return node -> m_height;
   }
 
+  /**
+   * Return the balance on a specific node.
+   * 
+   * @param node The node whose balance we want to return
+   * @return The balance on the given node
+  */
   int getBalanceOnNode ( Node * node ){
     if ( node == nullptr )
       return 0;
     return ( getNodeHeight( node -> m_left ) - getNodeHeight( node -> m_right ) );
   }
 
+  /**
+   * Change the height of a node.
+   * 
+   * @param node The node whose height we want to change 
+  */
   void changeHeight ( Node * node ){
     node -> m_height = std::max( getNodeHeight( node -> m_left ), getNodeHeight( node -> m_right ) ) + 1;
   }
 
+  /**
+   * Perform a left rotate on a specific node.
+   * 
+   * @param node The node on which we want to perform left rotate
+   * @return The new node on the position of the node before the rotate
+  */
   Node * leftRotate ( Node * node ){
     Node * rTmp = node -> m_right;
     Node * Sub = rTmp -> m_left;
@@ -151,6 +203,12 @@ struct Tree {
     return rTmp;
   }
 
+  /**
+   * Perform a right rotate on a specific node.
+   * 
+   * @param node The node on which we want to perform right rotate
+   * @return The new node on the position of those node before the rotate
+  */
   Node * rightRotate ( Node * node ){
     Node * lTmp = node -> m_left;
     Node * Sub = lTmp -> m_right;
@@ -179,6 +237,11 @@ struct Tree {
     return lTmp; 
   }
 
+  /**
+   * Balance a tree on a specific node.
+   * 
+   * @param node The node on which we want to balance the tree
+  */
   void balanceTree ( Node * node ){
     Node * isRoot = nullptr;
     while ( node != nullptr ){
@@ -202,6 +265,11 @@ struct Tree {
       root = isRoot;    
   }
 
+  /**
+   * Insert a new node into the tree.
+   * 
+   * @param value The value of the new node
+  */
   bool insert(T value){
     if ( root == nullptr ){
       root = new Node ( value, nullptr );
@@ -229,10 +297,22 @@ struct Tree {
     return true;
   }
 
+  /**
+   * Finds a successor of a given node.
+   * 
+   * @param node The node whose successor we want to find
+   * @return The successor of the given nod
+  */
   Node * findSuccessor ( Node * node ){
     return minInTree ( node -> m_right );
   }
 
+  /**
+   * Find the node with the minimum value in the tree.
+   * 
+   * @param node The root node of the tree in which we want to fund the minimum value
+   * @return The node with the lowest value in the tree
+  */
   Node * minInTree ( Node * node ){
     Node * curr = node;
     if ( curr -> m_left == nullptr )
@@ -244,6 +324,12 @@ struct Tree {
     return curr;
   }
 
+  /**
+   * Erase an element from the tree.
+   * 
+   * @param value The value that is to be erased from the tree
+   * @return True if the element was successfully erased, False otherwise
+  */
   bool erase(const T& value){
     auto isFound = findNode ( value );
     Node * toBeBalancedFrom = nullptr;
