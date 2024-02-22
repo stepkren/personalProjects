@@ -9,6 +9,12 @@
 #include <string>
 using namespace std;
 
+/**
+ * Converts the vytes to binary.
+ * 
+ * @param content The content that is to be converted
+ * @return A binary string
+*/
 string ByteToBinary ( const int32_t content )
 {
     unsigned char u_content = content;
@@ -34,6 +40,11 @@ string ByteToBinary ( const int32_t content )
     return res;
 }   
 
+/**
+ * Generates a Fibonacci sequence.
+ * 
+ * @return The fibonacci sequence in a vector
+*/
 vector<int32_t> GenerateFibSeq ( void )
 {
     vector<int32_t> fibSeq;
@@ -57,6 +68,12 @@ vector<int32_t> GenerateFibSeq ( void )
     return fibSeq;
 }
 
+/**
+ * Returns the number of extra bytes in the value.
+ * 
+ * @param value The value of which we want the extra bytes
+ * @return A number of the extra bytes
+*/
 int NumberOfExtraBytes ( int32_t &value )
 {
     int n = 0;
@@ -81,6 +98,11 @@ int NumberOfExtraBytes ( int32_t &value )
     return n;  
 }
 
+/**
+ * Rotates a string.
+ * 
+ * @param tmp The string to be rotated
+*/
 void RotateString ( string &tmp )
 {
     int j = tmp.length() - 1;
@@ -93,13 +115,19 @@ void RotateString ( string &tmp )
     }
 }
 
+/**
+ * Writes the output to a file.
+ * 
+ * @param finalSeq 
+ * @param outputFile The file into the output is to be written
+ * @return True if the output was successfully written into the file, false otherwise
+*/
 bool WriteOutputToFile ( string &finalSeq, ofstream &outputFile )
 {
     size_t position = 0; size_t lengthOfSubstr = 8; string tmp = ""; char outputByte = 0;
     while ( position < finalSeq.length() ){
         tmp = finalSeq.substr( position, lengthOfSubstr );
         RotateString ( tmp );
-        // cout << "tmp = " << tmp << endl;
         position += lengthOfSubstr;
         outputByte = stoi ( tmp, 0, 2 );
         outputFile << outputByte;
@@ -110,6 +138,15 @@ bool WriteOutputToFile ( string &finalSeq, ofstream &outputFile )
     return true;
 }
 
+/**
+ * Converts the value to the Fibonacci code.
+ * 
+ * @param FS The Fibonacci sequence vector
+ * @param value The value to be converted
+ * @param outputFile The output file
+ * @param finalSeq
+ * @return True if the output was written to the file successfully, False otherwise
+*/
 bool ToFib ( const vector<int32_t> &FS, int32_t value, ofstream &outputFile, string &finalSeq )
 {
     size_t i = FS.size();
@@ -153,6 +190,12 @@ bool CompleteOutput ( string &finalSeq, ofstream &outputFile )
     return true;
 }
 
+/**
+ * Removes the mask of the value in binary.
+ * 
+ * @param value The value of which we want the mask to remove
+ * @return True if removed successfully, False otherwise
+*/
 bool RemoveMask ( int32_t &value )
 {
     if ( ( value & 0b11000000 ) != 0b10000000 )
@@ -162,6 +205,13 @@ bool RemoveMask ( int32_t &value )
     return true;
 }
 
+/**
+ * Bitwise or.
+ * 
+ * @param value1 The first value
+ * @param value2 The second value
+ * @return The result of the operation
+*/
 int32_t BitwiseOr ( int32_t value1, int32_t value2 )
 {
     int32_t finalByte = ( ( value1 << 6 ) | value2 );
@@ -169,6 +219,13 @@ int32_t BitwiseOr ( int32_t value1, int32_t value2 )
     return finalByte;
 }
 
+/**
+ * Convert from UTF-8 to the Fibonacci code.
+ * 
+ * @param inFile The input file which is to be converted
+ * @param outFile The output file to which the result is to be written
+ * @return True if converted successfully, False otherwise
+*/
 bool utf8ToFibonacci ( const char * inFile, const char * outFile )
 {
     ifstream inputFile ( inFile, ios::binary );
@@ -212,7 +269,6 @@ bool utf8ToFibonacci ( const char * inFile, const char * outFile )
     return true;
 }
 
-
 int FoundSeqToNum ( const string &foundSeq, vector<int32_t> FS )
 {
     int value = 0;
@@ -225,6 +281,12 @@ int FoundSeqToNum ( const string &foundSeq, vector<int32_t> FS )
     return value - 1;
 }
 
+/**
+ * Return the number of bytes of a given value.
+ * 
+ * @param value The value of which we want the number of bytes
+ * @return The number of bytes
+*/
 int NumOfBytes ( const int32_t value )
 {
     int n = 0;
@@ -243,6 +305,12 @@ int NumOfBytes ( const int32_t value )
     return n;
 }
 
+/**
+ * Convert a value to binary.
+ * 
+ * @param value The value that is to be converted to binary
+ * @return The binary string of the given value
+*/
 string ToBinary ( int32_t value )
 {
     string res = ""; int tmp = value;
@@ -261,6 +329,12 @@ string ToBinary ( int32_t value )
     return res;
 }
 
+/**
+ * Fill the string with zeros to make 8 bits.
+ * 
+ * @param finalSeq The string to fill with zeros
+ * @param numOfBytes The number of bytes, determines how many zeros to fill
+*/
 void FillWithZeros ( string &finalSeq, const int numOfBytes )
 {
     size_t length = 0;
@@ -284,6 +358,13 @@ void FillWithZeros ( string &finalSeq, const int numOfBytes )
     }
 }
 
+/**
+ * Convert to UTF-8 and write to a file.
+ * 
+ * @param value The value that is to be converted
+ * @param outputFile The output file
+ * @return True if converted successfully, False otherwise
+*/
 bool ToUtf8 ( int32_t value, ofstream &outputFile )
 {
     int numOfBytes = NumOfBytes( value );
@@ -397,6 +478,13 @@ bool CheckRemaining ( const string &remainingSeq )
     return true;
 }
 
+/**
+ * Convert from UTF-8 to Fibonacci encoding.
+ * 
+ * @param inFile The input file to convert
+ * @param outFile The output file
+ * @return True if converted successfully, False otherwise
+*/
 bool               fibonacciToUtf8                         ( const char      * inFile, 
                                                              const char      * outFile )
 {
@@ -425,6 +513,8 @@ bool               fibonacciToUtf8                         ( const char      * i
 
     return true;
 }
+
+bool identicalFiles (auto fileA, auto fileB) {}
   
 
 
