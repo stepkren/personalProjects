@@ -23,16 +23,24 @@ struct Person
 class CPersonalAgenda
 {
   public:
-// CONSTRUCTOR  
-                  CPersonalAgenda  ( void )
-                  {
-                  }
-// DESTRUCTOR                  
-                  ~CPersonalAgenda ( void )
-                  {
+    // No args constructor  
+    CPersonalAgenda  ( void )
+    {
+    }
 
-                  }
-/** Add entry to the database */
+    // Destructor                  
+    ~CPersonalAgenda ( void )
+    {
+    }
+
+    /** Add a new person entry with given details to the database.
+     * 
+     * @param name The first name of the person to be added
+     * @param surname The last name of the person to be added
+     * @param email The email address of the person to be added
+     * @param salary The salary of the person to be added
+     * @return True if the person was successfully added, False if a person with the same name (first name and last name) or email already exists in the database 
+     */
     bool          add              ( const string    & name,
                                      const string    & surname,
                                      const string    & email,
@@ -56,7 +64,14 @@ class CPersonalAgenda
 
         return true;
     }
-// METHOD DELETE ENTRY ( NAME, SURNAME )    
+
+    /**
+     * Deletes a person entry from the database by their first name and last name.
+     * 
+     * @param name The first name of the person to be deleted
+     * @param surname The last name of the person to be deleted
+     * @return True if the person was successfully deleted from the database, False if the person wasn't found in the database
+    */
     bool          del              ( const string    & name,
                                      const string    & surname )
     {
@@ -79,8 +94,14 @@ class CPersonalAgenda
         emails.erase( itEmails );
 
         return true;
-    }                                     
-// METHOD DELETE ENTRY ( EMAIL )                                     
+    }   
+
+    /**
+     * Deletes a person entry from the database by their email.
+     * 
+     * @param enail The email of the person to be deleted
+     * @return True if the person was successfully deleted, False if the person wasn't found in the database
+    */
     bool          del              ( const string    & email )
     {
         Person tmp;
@@ -102,7 +123,15 @@ class CPersonalAgenda
 
         return true;
     }
-// METHOD CHANGE NAME    
+
+    /**
+     * Change the first and last name of a person in the database found by email.
+     * 
+     * @param email The email address of the person whose first and last names are to be changed
+     * @param newName The new first name for the person
+     * @param newSurname The new last name for the person
+     * @return True if the first and last names were successfully changed, False if the email doesn't exist in the database or the new first name or surname are already in the database
+    */
     bool          changeName       ( const string    & email,
                                      const string    & newName,
                                      const string    & newSurname )
@@ -134,11 +163,18 @@ class CPersonalAgenda
         if ( ( names[posNames].firstName == newName ) && ( names[posNames].lastName == newSurname ) )
             return false;
         names.insert( itNames, tmp );
-        // names[posNames].firstName = newName; names[posNames].lastName = newSurname;  - names.begin()
 
         return true;
-    }                                     
-// METHOD CHANGE EMAIL                                     
+    }       
+
+    /**
+     * Change the email address of a person in the database found by first and last name.
+     * 
+     * @param name The first name of the person whose email address is to be changed
+     * @param surname The last name of the person whose email address is to be changed
+     * @param newEmail The new email address for the person
+     * @return True if the email address was successfully changed, False if the first or last name don't exist in the database or the new email address is already in the database
+    */                                
     bool          changeEmail      ( const string    & name,
                                      const string    & surname,
                                      const string    & newEmail )
@@ -155,11 +191,8 @@ class CPersonalAgenda
         size_t posNames = lower_bound ( names.begin(), names.end(), tmp, compareNames ) - names.begin();
         if ( posNames > names.size() - 1 )
             return false;
-        // cout << "pos = " << posNames << " FN = " << names[posNames].firstName << " LN = " << names[posNames].lastName << endl;
-        // cout << names.size() << endl;
         if ( ( names[posNames].firstName == name ) && ( names[posNames].lastName == surname ) ){
             tmp.email = names[posNames].email; tmp.salary = names[posNames].salary;
-            // cout << names[posNames].email << endl;
             if ( names[posNames].email == newEmail )
                 return false;
             names[posNames].email = newEmail;
@@ -174,11 +207,18 @@ class CPersonalAgenda
         if ( ( emails[posEmails].email == newEmail ) )
             return false;
         emails.insert( itEmails, tmp );
-        // emails[posEmails].email = newEmail; - emails.begin()
 
         return true;
-    }                                     
-// METHOD SET SALARY ( NAME, SURNAME )                                     
+    }
+
+    /**
+     * Sets the salary of a person in the database.
+     * 
+     * @param name The first name of the person in the database whose salary is to be set
+     * @param surname The last name of the person in the database whose salary is to be set
+     * @param salary The value of the salary to be set
+     * @return True if the salary was successfully set, False if the first and last name don't exist in the database
+    */
     bool          setSalary        ( const string    & name,
                                      const string    & surname,
                                      unsigned int      salary )
@@ -201,7 +241,14 @@ class CPersonalAgenda
 
         return true;
     }                                     
-// METHOD SET SALARY ( EMAIL )                                     
+
+    /**
+     * Sets the salary of a person in the database.
+     * 
+     * @param email The email address of the person in the database whose salary is to be set
+     * @param salary The value of the salary to be set
+     * @return True if the salary was successfully set, False if the email address doesn't exist in the database
+    */                              
     bool          setSalary        ( const string    & email,
                                      unsigned int      salary )
     {
@@ -223,7 +270,14 @@ class CPersonalAgenda
 
         return true;
     }                                     
-// METHOD GET SALARY ( NAME, SURNAME )                                     
+
+    /**
+     * Returns the salary of a person in the database.
+     * 
+     * @param name The first name of the person whose salary is to be returned
+     * @param surname The last name of the person whose salary is to be returned
+     * @return The salary of the person in the database
+    */                                
     unsigned int  getSalary        ( const string    & name,
                                      const string    & surname ) const
     {
@@ -242,7 +296,13 @@ class CPersonalAgenda
 
         return m_salary;
     }                                     
-// METHOD GET SALARY ( EMAIL )                                     
+
+    /**
+     * Returns the salary of a person in the database.
+     * 
+     * @param email The email address of the person whose salary is to be returned
+     * @return The salary of the person in the database
+    */                                  
     unsigned int  getSalary        ( const string    & email ) const
     {
         Person tmp;
@@ -259,7 +319,16 @@ class CPersonalAgenda
 
         return m_salary;
     }
-// METHOD GET RANK ( NAME, SURNAME )    
+
+    /**
+     * Returns the salary position of the person on an imaginary scale from worst (lowest) to best (highest).
+     * 
+     * @param name The first name of the person whose "rank" is to be returned
+     * @param surname The last name of the person whose "rank" is to be returned
+     * @param rankMin The lowest value of the interval of salary ranks
+     * @param rankMax The highest value of the interval of salary ranks
+     * @return True if the "rank" is successfully returned, False if the first and last name don't exist in the database
+    */
     bool          getRank          ( const string    & name,
                                      const string    & surname,
                                      int             & rankMin,
@@ -286,11 +355,18 @@ class CPersonalAgenda
             rankMax++;
       }
       rankMax = rankMin + rankMax - 1;
-    //   cout << "min = " << rankMin << " max = " << rankMax << endl;
 
       return true;
     }                                     
-// METHOD GET RANK ( EMAIL )                                     
+
+    /**
+     * Returns the salary position of the person on an imaginary scale from worst (lowest) to best (highest).
+     * 
+     * @param email The email address of the person whose "rank" is to be returned
+     * @param rankMin The lowest value of the interval of salary ranks
+     * @param rankMax The highest value of the interval of salary ranks
+     * @return True if the "rank" is successfully returned, False if the email address doesn't exist in the database
+    */                                    
     bool          getRank          ( const string    & email,
                                      int             & rankMin,
                                      int             & rankMax ) const
@@ -316,11 +392,16 @@ class CPersonalAgenda
       }
       rankMax = rankMin + rankMax - 1;
 
-    // cout << "min = " << rankMin << " max = " << rankMax << endl;
-
       return true;
     }                                     
-// METHOD RETURN FIRST ENTRY ( SORTED - (1. SURNAME), (2. NAME) )                                     
+
+    /**
+     * Returns the first person in the sorted database.
+     * 
+     * @param outName The first name of the first person in the database
+     * @param outSurname The last name of the first person in the database
+     * @return True if the person is successfully returned, False if the database is empty
+    */
     bool          getFirst         ( string          & outName,
                                      string          & outSurname ) const
     {
@@ -332,7 +413,16 @@ class CPersonalAgenda
 
       return true;
     }                                     
-// METHOD RETURN NEXT ENRY ( SORTED - (1. SURNAME), (2. NAME)                                     
+
+    /**
+     * Returns the next person in the sorted database.
+     * 
+     * @param name The first name of the person before the searched for person
+     * @param surname The last name of the person before the searched for person
+     * @param outName The first name of the next person after the found person
+     * @param outSurname The last name of the next person after the found person
+     * @return True if the person is successfully returned, False if the person (name, surname) wasn't found or if the found person is the last entry in the database
+    */                                     
     bool          getNext          ( const string    & name,
                                      const string    & surname,
                                      string          & outName,
@@ -355,14 +445,16 @@ class CPersonalAgenda
         return true;
     }
 
+    
+    // Prints the names and emails vectors.
     void printVectors ( void )
     {
         for ( size_t i = 0; i < names.size(); i++ ){
-            // cout << names[i].firstName << " " << names[i].lastName << " " << names[i].email << " " << names[i].salary << endl;
+            cout << names[i].firstName << " " << names[i].lastName << " " << names[i].email << " " << names[i].salary << endl;
         }
 
         for ( size_t i = 0; i < emails.size(); i++ ){
-            // cout << emails[i].firstName << " " << emails[i].lastName << " " << emails[i].email << " " << emails[i].salary << endl;
+            cout << emails[i].firstName << " " << emails[i].lastName << " " << emails[i].email << " " << emails[i].salary << endl;
         }
     }                                                               
                                      
@@ -372,6 +464,13 @@ class CPersonalAgenda
     vector<Person> names;
     vector<Person> emails;
 
+    /**
+     * Method that compares 2 Person objects by first and last name.
+     *
+     * @param a The first Person object to be compared
+     * @param b The second Person object to be compared
+     * @return True if 'a' should come before 'b' in the sorted order based on last names and first names, false otherwise
+    */
     static bool compareNames ( const Person& a, const Person& b )
     {
         if ( a.lastName != b.lastName )
@@ -379,13 +478,20 @@ class CPersonalAgenda
         return a.firstName < b.firstName;
     }
 
+    /**
+     * Method that compares 2 Person objects by email address.
+     * 
+     * @param a The first Person object to be compared
+     * @param b The second Person object to be compared
+     * @return True if 'a' should come before 'b' in the sorted order based on email addresses, false otherwise
+    */
     static bool compareEmails ( const Person& a, const Person& b )
     {
         return a.email < b.email;
     }
 };
 
-#ifndef __PROGTEST__
+
 int main ( void )
 {
   string outName, outSurname;
@@ -511,4 +617,3 @@ int main ( void )
 
   return EXIT_SUCCESS;
 }
-#endif /* __PROGTEST__ */
