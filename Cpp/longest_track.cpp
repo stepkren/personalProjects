@@ -26,16 +26,45 @@ struct Path {
   Point from, to;
   unsigned length;
 
+  /**
+   * All arguments constructor.
+   * Initializes a Path object with given parameters.
+   * 
+   * @param f Starting point of the path
+   * @param t Ending point of the path
+   * @param l Length of path
+  */
   Path(size_t f, size_t t, unsigned l) : from{f}, to{t}, length{l} {}
 
+  /**
+   * Overloads the equality operator for comparing two Path objects.
+   * 
+   * @param a First Path object to be compared
+   * @param b Second Path object to be compared
+   * @return True if both Path objects are equal, otherwise False
+  */
   friend bool operator == (const Path& a, const Path& b) {
     return std::tie(a.from, a.to, a.length) == std::tie(b.from, b.to, b.length);
   }
   
+  /**
+   * Overloads the inequality operator for comparing two Path objects.
+   * 
+   * @param a First Path object to be compared
+   * @param b Second Path object to be compared
+   * @return True if both Path objects aren't equal, otherwise False
+  */
   friend bool operator != (const Path& a, const Path& b) { return !(a == b); }
 };
 
-
+/**
+ * Performs topological sort on a directec acyclic graph (DAG).
+ * 
+ * @param adjList A graph represented by a adjecency list
+ * @param inDegree Map storing the in-degree of each vertex
+ * @return A vector containing the vertices of the input graph in topological order 
+ * 
+*/
 std::vector<Point> top_sort ( const std::vector<std::vector<std::pair<Point, size_t>>> & adjList, std::map<Point, size_t> & inDegree ){
   std::queue<Point> q;
   std::vector<Point> res;
@@ -61,6 +90,15 @@ std::vector<Point> top_sort ( const std::vector<std::vector<std::pair<Point, siz
   return res;
 }
 
+/**
+ * Reconstructs the longest path from the parent map, source nodes, and distances.
+ * 
+ * @param parent A map containing the parent node for each node in the graph 
+ * @param sourceNodes A vector containing all source nodes of the graph
+ * @param end End node
+ * @param distances A vector of distances
+ * @return A vector containing the reconstructed longest path
+*/
 std::vector<Path> reconstruct_longest_path ( const std::map<Point, Point> & parent, const std::vector<Point> & sourceNodes, const int end, const std::vector<int> & distances ){
   std::vector<Path> res;
   size_t curr = end;
@@ -79,6 +117,14 @@ std::vector<Path> reconstruct_longest_path ( const std::map<Point, Point> & pare
   return res;
 }
 
+/**
+ * Runs the Bellman-Ford algorithm on the graph.
+ * 
+ * @param adjList The graph on which the Bellman-Ford algorithm will run represented by an adjacency list 
+ * @param tOrder The topological order of the graph
+ * @param srcNodes A vector of source nodes
+ * @return A vector containing the longest path
+*/
 std::vector<Path> Bellman_Ford ( const std::vector<std::vector<std::pair<Point, size_t>>> & adjList, const std::vector<Point> tOrder, const std::vector<Point> srcNodes ){
   std::vector<Path> res;
   std::map<Point, Point> parent;
@@ -105,6 +151,13 @@ std::vector<Path> Bellman_Ford ( const std::vector<std::vector<std::pair<Point, 
   return result;
 }
 
+/**
+ * Finds the longest track.
+ * 
+ * @param points The total number of points in the track
+ * @param all_paths A vector containing all paths between points
+ * @return The vector of Path objects representing the longest pathm in the graph
+*/
 std::vector<Path> longest_track(size_t points, const std::vector<Path>& all_paths){
   std::vector<std::vector<std::pair<Point, size_t>>> adjList(points);
   std::set<Point> verteces;
