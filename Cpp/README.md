@@ -10,3 +10,7 @@ transcode.cpp
 database.cpp
 - simulates a database
 - implements different operations on the database
+
+user_interface.cpp
+- simulates a user interface including objects (button, window, Input, Label, ComboBox)
+- tests polymorphism, inheritance and abstract methods
