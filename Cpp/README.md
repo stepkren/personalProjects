@@ -1,16 +1,18 @@
-longest_track.cpp
-- searches for the longest track in a graph using the Bellman-Ford algorithm
+# C++ projects
 
-AVL_tree.cpp
-- implementation of an AVL tree with basic operations
+## **longest_track.cpp**
+- searches for the *longest track* in a graph using the *Bellman-Ford* algorithm
 
-transcode.cpp
-- transcodes a file from the UTF8 encoding to the Fibonacci code and back
+## **AVL_tree.cpp**
+- implementation of an *AVL tree* with basic operations
 
-database.cpp
-- simulates a database
+## **transcode.cpp**
+- *transcodes* a file from the UTF8 encoding to the Fibonacci code and back
+
+## **database.cpp**
+- simulates a *database*
 - implements different operations on the database
 
-user_interface.cpp
+## **user_interface.cpp**
 - simulates a user interface including objects (button, window, Input, Label, ComboBox)
-- tests polymorphism, inheritance and abstract methods
+- tests *polymorphism*, *inheritance* and *abstract methods*
