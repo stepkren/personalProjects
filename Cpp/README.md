@@ -23,3 +23,7 @@
 
 ### **intervals.cpp**
 - represents integer intervals and their lists
+
+### **mail_server.cpp**
+- simulates a simple mail server
+- tests *overloading operators*, etc.
