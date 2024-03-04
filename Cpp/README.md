@@ -16,3 +16,7 @@
 ### **user_interface.cpp**
 - simulates a user interface including objects (button, window, Input, Label, ComboBox)
 - tests *polymorphism*, *inheritance* and *abstract methods*
+
+### **templates.cpp**
+- builds result lists depending on the given inputs
+- tests *templates*
