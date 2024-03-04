@@ -20,3 +20,6 @@
 ### **templates.cpp**
 - builds result lists depending on the given inputs
 - tests *templates*
+
+### **intervals.cpp**
+- represents integer intervals and their lists
