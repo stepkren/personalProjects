@@ -6,4 +6,4 @@
 - For loading a saved game (game saves always when you hit 'esc' when playing the game) run the command `make run-load`
 
 ### Other
-- For further information read the **zadani.txt** file
+- For further information read the **zadaniENG.txt** file
