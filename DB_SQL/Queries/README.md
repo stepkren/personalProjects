@@ -1,5 +1,30 @@
 # Queries on the database
 
+## Categories
+- **A** (Positive query about joining at least two tables)
+- **B** (Negative query about joining at least two tables)
+- **C** (Choose those who are related ONLY to ...​)
+- **D1** (Select those who are related to all)
+- **F1** (JOIN ON)
+- **F2** (NATURAL JOIN/JOIN USING)
+- **F3** (CROSS JOIN)
+- **F4** (LEFT/RIGHT/OUTER JOIN)
+- **F5** (FULL JOIN)
+- **G1** (A nested query in a WHERE clause)
+- **G2** (A nested query in the FROM clause)
+- **G3** (A nested query in a SELECT clause)
+- **G4** (Related nested query (EXISTS, NOT EXISTS))
+- **H1** (UNION)
+- **H2** (MINUS/EXCEPT)
+- **H3** (INTERSECT)
+- **I1** (Aggregation function (count/sum/min/max/avg))
+- **I2** (GROUP BY (HAVING))
+- **J** (The same query in three different SQL formulations)
+- **K** (All clauses in 1 query - SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY)
+- **L** (VIEW)
+- **O** (UPDATE with a nested SELECT statement)
+- **P** (DELETE with a nested SELECT statement)
+
 #### Choose the birth numbers of those actors who only play plays written by William Shakespeare. (C; F1; G2; H2)
 ```SQL
 select distinct rodne_cislo from
