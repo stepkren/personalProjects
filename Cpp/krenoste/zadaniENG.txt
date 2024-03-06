@@ -37,8 +37,6 @@ Also laser missiles that the player will shoot at enemy characters. I create an 
 class "SDLGameObject". From the class "SDLGameObject" I then derive the classes "PlayerCharacter", "EnemyCharacter" and "Shot"
 "PlayerCharacter" represents the character the player will play as and the "EnemyCharacter" class represents the enemy characters and the "Shot" class
 represents the already mentioned missiles. In the base class, I define common attributes and methods, which will then be applicable in all derived classes.
-- When creating the game I was pressed for time and I didn't use polymorphism correctly for the Game Objects, I know this was incorrect
-- Polymorphism is however correctly used representing the Game States (see below)
 
 I will further use polymorphism in classes representing the current state of the game (menu, game, pause). First I create an abstract class "GameState",
 from which I then derive the "MenuState", "PlayState" and "PauseState" classes. Each of these classes overload the methods of the "GameState" class. We still have to
