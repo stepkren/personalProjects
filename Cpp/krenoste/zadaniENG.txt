@@ -1,0 +1,45 @@
+LUNARIA
+
+IMPLEMENTATION
+
+Lunaria is a 2D top down sandbox game set on the moon.
+
+The player will play as a character that he will be able to move around with (W, A, S, D). The character will have a certain number of health points, the maximum number
+of health points the character will have is 100. There will also be hostile characters in the game, in the form of some enemies.
+Since the game takes place on the moon, the character will have a limited amount of oxygen available. When oxygen is depleted
+the player will periodically take damage. Oxygen and lives can be replenished by stepping on eggs (red ones will replenish
+lives and blue will replenish oxygen ). Since this is a sandbox game, it will be necessary to interact with the environment.
+Therefore, the player will be able to mine raw materials (LMB) and build (RMB).
+
+However, Lunaria is no walk in the park, and various dangers await the player on the surface of the moon. The player, on the other hand,
+may encounter various enemies to fight, which if touched by the player will take away a certain amount of
+health points. The surface of the moon is unforgiving and the player will have to be careful not to run out of oxygen.
+As soon as the player uses up all the oxygen, he will suffer 10 units of damage after the given period, so it will be necessary to ensure that there is enough oxygen.
+The player will also have to watch out for the magma found in meteorites, which he will be able to mine (LMB) for raw materials. If 
+a player stands on magma he will be dealt high damage.
+
+The player will be able to fight with enemies using a laser gun (SPACE), which, if it hits an enemy, the enemy will die.
+The player will also be able to refill both lives and oxygen, if the player steps on a red egg,
+he will receive some health points back, but an enemy will appear and if the enemy touches the player it can hurt the player.
+However, if the player steps on the blue egg, he will replenish his oxygen, but an enemy will appear
+this enemy can also hurt the player. To make it easier for the player to build, when you move the mouse over a tilemap tile, the tile will be highlighted.
+However, the player only has limited abilities and thus has a range of 4 tiles around him on each side. The player can build in this radius,
+if he has enough bricks.
+
+
+USE OF POLYMORPHISM
+
+I will use polymorphism several times in the implementation of Lunaria. Thanks to the use of polymorphism, I can handle derived objects
+classes as their base class objects, allowing me to write more generic and reusable code.
+
+Firstly I will use polymorphism for individual instances of game objects, i.e. the character that the player will control and the enemy characters.
+Also laser missiles that the player will shoot at enemy characters. I create an abstract class called "GameObject" and derive from it
+class "SDLGameObject". From the class "SDLGameObject" I then derive the classes "PlayerCharacter", "EnemyCharacter" and "Shot"
+"PlayerCharacter" represents the character the player will play as and the "EnemyCharacter" class represents the enemy characters and the "Shot" class
+represents the already mentioned missiles. In the base class, I define common attributes and methods, which will then be applicable in all derived classes.
+- When creating the game I was pressed for time and I didn't use polymorphism correctly for the Game Objects, I know this was incorrect
+- Polymorphism is however correctly used representing the Game States (see below)
+
+I will further use polymorphism in classes representing the current state of the game (menu, game, pause). First I create an abstract class "GameState",
+from which I then derive the "MenuState", "PlayState" and "PauseState" classes. Each of these classes overload the methods of the "GameState" class. We still have to
+create a GameStateMachine class that will then allow us to switch between different game states.
