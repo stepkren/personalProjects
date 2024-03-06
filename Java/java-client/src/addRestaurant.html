@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Restaurant</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 2px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        button {
+            margin-top: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Add Restaurant</h2>
+    <form id="addForm">
+        <label for="newName">Name:</label>
+        <input type="text" id="newName" name="name">
+
+        <label for="newPhone">Phone Number:</label>
+        <input type="text" id="newPhone" name="phoneNumber">
+
+        <label for="newIOM">Items On Menu:</label>
+        <input type="number" id="newIOM" name="itemsOnMenu">
+
+        <label for="newOpenFrom">Open From:</label>
+        <input type="date" id="newOpenFrom" name="openFrom">
+
+        <label for="newCooks">Cooks:</label>
+        <select id="newCooks" name="cooks">
+
+        </select>
+    </form>
+    <button type="button" onclick="addRestaurant()">Add Restaurant</button>
+    <button type="button" onclick="goBack()">Go Back</button>
+
+</div>
+
+<script src="addRestaurant.js"></script>
+</body>
+</html>

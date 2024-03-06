@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Update Restaurant</title>
+</head>
+<body>
+    <h2>Update Restaurant</h2>
+    <form id="updateForm">
+        <label for="newName">Name:</label>
+        <input type="text" id="newName" name="name">
+
+        <label for="newPhone">Phone Number:</label>
+        <input type="text" id="newPhone" name="phoneNumber">
+
+        <label for="newIOM">Items On Menu:</label>
+        <input type="number" id="newIOM" name="itemsOnMenu">
+
+        <label for="newOpenFrom">Open From:</label>
+        <input type="date" id="newOpenFrom" name="openFrom">
+
+        <label for="newCooks">Cooks:</label>
+        <select id="newCooks" name="cooks">
+
+        </select>
+
+        <button type="button" onclick="updateRestaurant()">Update Restaurant</button>
+    </form>
+
+    <script src="updateRestaurant.js"></script>
+</body>
+</html>
