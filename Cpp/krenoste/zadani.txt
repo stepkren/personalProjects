@@ -1,0 +1,43 @@
+LUNARIA
+
+IMPLEMENTACE	
+
+Lunaria je 2D top down sandboxová hra, která se odehrává na Měsíci.
+
+Hráč bude hrát za postavu, se kterou se bude moci pohybovat. Postava bude mít určitý počet životů, maximální počet
+bodů zdraví, které postava bude mít je 100. Ve hře budou také postavy záporné, a to v podobě nějakých něpřátel.
+Jelikož se hra odehrává na Měsíci bude mít postava k dispozici i omezené množství kyslíku. Při vyčerpání kyslíku
+bude hráč periodicky dostávat poškození. Kyslík i životy je možné si doplnit šlápnutím na vejce ( červné doplní
+životy a modré doplní kyslík ). Jelikož se jedná o sandboxovou hru bude zapotřebí i interagovat s prostředím.
+Hráč proto bude mít možnost těžit suroviny a stavět.
+
+Lunaria ovšem není žádná procházka růžovým sadem a na povrchu Měsíce číhají na hráče různá nebezpečí. Hráč se jednak
+může setkat s různými nepřáteli, se kterými bude muset bojovat, kteří pokud se hráče dotknou odeberou mu určité množství
+bodů zdraví. Povrch měsíce je nemilosrdný a hráč si tak bude muset dávat pozor, aby mu nedošel kyslík.
+Jakmile vyčerpá hráč veškerý kyslík utrpí po dané periodě 10 jednotek poškození, bude tedy potřeba dbát na dostatek kyslíku.
+Hráč si bude muset dát pozor i na magmu, která s vyskytuje u meteoritů, které bude moci vytěžit pro suroviny. Pokud bude
+hráč na magmě stát bude mu uděleno vysoké poškození.
+
+Hráč bude moci s nepřáteli bojovat pomocí laserové pistole, kterou, když nepřítele trefí tak nepřítel zemře.
+Hráč si bude moci také doplnit jak životy tak kyslík, ale nebude to jen tak, pokud hráč rozšlápne červné vejce,
+tak obdrží na zpět nějaké body zdraví, ale objeví se nepřítel, který, pokud na to přijde může hráči hráči naopak 
+nějaké body zdraví opět odebrat. Pokud hráč ovšem zašlápne modré vejce tak si tím doplní kyslík, avšak se opět objeví
+nepřítel, který může hráče opět zranit. Aby se hráči lépe stavělo tak při přejetí myší přes dlaždici tilemapy, dlaždice se zvýrazní.
+Hráč má ovšem pouze omezené schopnosti a má tak dosah 4 dlaždice kolem sebe na každou stranu. v tomto radiusu může jak stavět,
+pokud má ale dostatek cihel, nebo těžit. 
+
+
+VYUŽITÍ POLYMORFISMU
+
+Polymorfismus využiji v implementaci Lunarie hned několikrát. Díky využití polymorfismu mohu zacházet s objekty odvozených
+tříd jako s objekty jejich základní třídy, což mi umožní psát generičtější a znovu použitelný kód.
+
+Jako první využiji polymorfismus pro jednotlivé instance herních objektů, tj. postava, kterou bude ovládat hráč a nepřátelské postavy.
+Dále také laserové střely, které bude hráč střílet na nepřátelské postavy. Vytvořím abstraktní třídu s názvem "GameObject" a z ní odvodím
+třídu "SDLGameObject". Z třídy "SDLGameObject" poté odvodím třídy "PlayerCharacter", "EnemyCharacter" a "Shot"
+"PlayerCharacter" reprezentuje postavu, za kterou bude hrát hráč a třída "EnemyCharacter" reprezentuje nepřátelské postavy a třída "Shot"
+reprezentuje již zmíněné střely. V základní třídě definuji společné atributy a metody, které budou poté použitelné i ve všech odvozených třídách.
+
+Polymorfismus dále využiji ve třídách reprezentujících momentální stav hry ( menu, hra, pause ). Jako první vytvořím abstraktní třídu "GameState",
+ze které potom odvodím třídy "MenuState", "PlayState" a "PauseState". Každé z těchto tříd přetěžují metody třídy "GameState". Dále musíme ještě
+vytvořit třídu GameStateMachine, díky které budeme poté schopni přepínat mezi různými stavy hry.
