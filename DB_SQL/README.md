@@ -7,5 +7,6 @@ V divadle se každý večer koná nějaké představení, u kterého nás zajím
 Jelikož je divadlo velmi často a hojně navštěvováno, musíme evidovat i informace o jednotlivých **osobách** , které jednotlivá představení navštěvují. Jak již bylo zmíněno, tak je divadlo neziskové, tudíž jednotliví herci nedostávají výplatu. Divadlo funguje pouze na principu dobrovolného **finančního daru** , u kterého, pokud se daná osoba rozhodla nějaký finanční dar divadlu poskytnout, je zapotřebí znát jeho *výši*. Přispění divadlu finančním darem není nutností a zároveň mohou finanční dar poskytnout pouze osoby. U osob navštěvujících divadlo budeme muset znát jejich *jméno* , *příjmení* a *informaci o tom, zdali darovali divadlu nějaký finanční dar* ve formě příspěvku (uvádíme pouze ANO / NE).
 
 ![DB relation scheme](images/diagram.png)
+![DB relation scheme](images/diagram_relation.png)
 
 **If you wish to read this in english view the readmeENG.txt file**
