@@ -12,6 +12,8 @@
 
 # Restaurant database
 
+### A 3-tier client-server Java application implementing complete CRUD.
+
 The application records and tracks which visitors visited which restaurant with which cuisine. It will also allow the user to add the restaurant to the list of visited restaurants.
 
 ## Query
